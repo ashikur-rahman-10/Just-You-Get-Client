@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../assets/logo2.png";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -84,9 +85,9 @@ const Login = () => {
             </a>
           </div>
           <div className="mt-2 text-center">
-            <a href="#" className="text-blue-100 hover:underline">
+            <Link to={"/register"} className="text-blue-100 hover:underline">
               Create new account →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

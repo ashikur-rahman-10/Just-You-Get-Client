@@ -95,7 +95,7 @@ const NavigationBar = () => {
         <div
           className={`navbar max-h-12 lg:px-20 w-full mx-auto transition-all duration-1000 ${
             scroll
-              ? "bg-gradient-to-bl from-blue-200 via-white to-pink-300 border shadow-md"
+              ? "bg-gradient-to-bl from-blue-200 via-transparent to-pink-300 border shadow-md"
               : "bg-transparent "
           }`}
         >
@@ -105,21 +105,25 @@ const NavigationBar = () => {
             </Link>
           </div>
 
-          <div className=" w-full text-center ">
+          <div
+            className={`w-full text-center ${
+              scroll ? "text-white" : "text-info "
+            }`}
+          >
             <NavLink
-              className="font-medium px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs text-info"
+              className="font-medium px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs "
               to={"/"}
             >
               Home
             </NavLink>
             <NavLink
-              className="font-medium px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs text-info"
+              className="font-medium px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs "
               to={"/books"}
             >
               Products
             </NavLink>
             <NavLink
-              className="font-medium px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs text-info"
+              className="font-medium px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs "
               to={"/categories"}
             >
               Categories
