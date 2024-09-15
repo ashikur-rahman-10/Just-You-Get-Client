@@ -1,21 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo2.png";
 
 const Footer = () => {
   return (
-    <div className="bg-[#1381f0]">
+    <div className="bg-gradient-to-bl from-blue-100 via-blue-200 to-blue-400">
       <footer className="footer p-10 max-w-7xl mx-auto text-neutral-content">
         <div>
-          <img className="w-28" src={logo} alt="" />
-          <p>
+          <img className="w-60" src={logo} alt="" />
+          <p className="text-gray-600 font-medium">
             <br />
             Providing reliable products since 2023
           </p>
         </div>
         <div>
           <span className="footer-title">Social</span>
-          <div className="grid grid-flow-col gap-4">
+          <div className="grid grid-flow-col gap-4 text-gray-500">
             <Link>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

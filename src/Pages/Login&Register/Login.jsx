@@ -81,7 +81,7 @@ const Login = () => {
           {/* Links */}
           <div className="mt-4 text-center">
             <a href="#" className="text-blue-100 hover:underline">
-              Forgot Username / Password?
+              Forgot Password?
             </a>
           </div>
           <div className="mt-2 text-center">

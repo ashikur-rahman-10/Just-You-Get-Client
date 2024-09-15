@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 import UseAllBooks from "../../Hooks/UseAllBooks";
 import { TfiWrite } from "react-icons/tfi";
 import { IoNewspaperOutline } from "react-icons/io5";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const NavigationBar = () => {
   const { user, loading, logout } = useContext(AuthContext);
@@ -95,7 +96,7 @@ const NavigationBar = () => {
         <div
           className={`navbar max-h-12 lg:px-20 w-full mx-auto transition-all duration-1000 ${
             scroll
-              ? "bg-gradient-to-bl from-blue-200 via-transparent to-pink-300 border shadow-md"
+              ? "bg-gradient-to-bl from-blue-100 via-blue-200 to-blue-400  shadow-md"
               : "bg-transparent "
           }`}
         >
@@ -106,7 +107,7 @@ const NavigationBar = () => {
           </div>
 
           <div
-            className={`w-full text-center ${
+            className={` w-fit text-center ${
               scroll ? "text-white" : "text-info "
             }`}
           >
@@ -118,7 +119,7 @@ const NavigationBar = () => {
             </NavLink>
             <NavLink
               className="font-medium px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs "
-              to={"/books"}
+              to={"/all-products"}
             >
               Products
             </NavLink>
@@ -128,8 +129,14 @@ const NavigationBar = () => {
             >
               Categories
             </NavLink>
+            <button
+              onClick={() => document.getElementById("my_modal_5").showModal()}
+              className="font-medium px-4 py-1 rounded-lg hover:bg-slate-200 lg:text-[16px] text-xs"
+            >
+              <FaMagnifyingGlass />
+            </button>
           </div>
-          <span className="md:hidden navbar-center">
+          {/* <span className="md:hidden navbar-center">
             <input
               type="text"
               placeholder="Search "
@@ -137,8 +144,8 @@ const NavigationBar = () => {
               value={searchTerm}
               onChange={handleSearchChange}
             />
-          </span>
-          <div className="navbar-center hidden md:flex">
+          </span> */}
+          {/* <div className="navbar-center hidden md:flex">
             <ul className="menu menu-horizontal px-1">
               <input
                 type="text"
@@ -148,7 +155,7 @@ const NavigationBar = () => {
                 onChange={handleSearchChange}
               />
             </ul>
-          </div>
+          </div> */}
           <div className="navbar-end">
             <div className="dropdown dropdown-end lg:mr-3 mr-1">
               <label tabIndex={0} className="">
@@ -262,32 +269,73 @@ const NavigationBar = () => {
       </div>
 
       {/* Render search results */}
-      <div className="relative flex items-center w-full justify-center">
-        <ul className="absolute mx-auto bg-gray-200 max-h-[510px] overflow-y-auto md:-top-9 -top-7 duration-1000">
-          {filteredBooks?.map((book) => (
-            <Link
-              onClick={() => {
-                setSearchTerm("");
-              }}
-              to={`/books/${book._id}`}
-              key={book._id}
-            >
-              <li className="border-b border-white py-2 px-2 w-80 hover:bg-slate-50">
-                <div className="flex">
-                  <div>
-                    <img className="w-10 h-10 mr-2" src={book.image} alt="" />
-                  </div>
-                  <div className="text-xs">
-                    {book.bookName}
-                    <br />
-                    <span className="text-[10px]">{book?.writerName}</span>
-                  </div>
-                </div>
-              </li>
-            </Link>
-          ))}
-        </ul>
-      </div>
+      <div className="relative flex items-center w-full justify-center"></div>
+
+      {/* Search Box Modal */}
+      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <div className="py-6 w-full">
+            <div className="relative w-90 mx-auto flex items-center justify-center">
+              <div className="pr-8">
+                <input
+                  className="border w-56 border-sky-500 border-r-0 rounded-l-full px-2 pl-4 py-1 text-sm"
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  placeholder="search"
+                />
+                <button
+                  className="border absolute border-sky-500 rounded-r-full px-2 py-[6px] bg-info text-white hover:text-info hover:bg-white duration-300"
+                  type="submit"
+                >
+                  <FaMagnifyingGlass />
+                </button>
+              </div>
+            </div>
+
+            {/* Render Search Result */}
+            {/* <div className="pt-4 h-[400px]">
+              <ul className=" mx-auto bg-gray-200 max-h-[400px] overflow-y-auto md:-top-9 -top-7 duration-1000">
+                {filteredBooks?.map((book) => (
+                  <Link
+                    onClick={() => {
+                      setSearchTerm("");
+                    }}
+                    to={`/books/${book._id}`}
+                    key={book._id}
+                  >
+                    <li className="border-b border-white py-2 px-2 w-90 hover:bg-slate-50">
+                      <div className="flex">
+                        <div>
+                          <img
+                            className="w-10 h-10 mr-2"
+                            src={book.image}
+                            alt=""
+                          />
+                        </div>
+                        <div className="text-xs">
+                          {book.bookName}
+                          <br />
+                          <span className="text-[10px]">
+                            {book?.writerName}
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            </div> */}
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
