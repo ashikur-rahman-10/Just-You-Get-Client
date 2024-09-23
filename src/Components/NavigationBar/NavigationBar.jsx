@@ -136,26 +136,7 @@ const NavigationBar = () => {
               <FaMagnifyingGlass />
             </button>
           </div>
-          {/* <span className="md:hidden navbar-center">
-            <input
-              type="text"
-              placeholder="Search "
-              className="px-2 py-1 text-[13px] focus:outline-none text-center rounded-3xl input input-bordered input-info ml-3 w-36"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </span> */}
-          {/* <div className="navbar-center hidden md:flex">
-            <ul className="menu menu-horizontal px-1">
-              <input
-                type="text"
-                placeholder="Search "
-                className="px-4 py-2 text-center text-sm focus:outline-none input rounded-3xl input-bordered input-info w-80"
-                value={searchTerm}
-                onChange={handleSearchChange}
-              />
-            </ul>
-          </div> */}
+
           <div className="navbar-end">
             <div className="dropdown dropdown-end lg:mr-3 mr-1">
               <label tabIndex={0} className="">
@@ -211,35 +192,17 @@ const NavigationBar = () => {
                       to={`/users/${user?.displayName}`}
                       className="justify-between"
                     >
-                      <FaSmileBeam className=" text-2xl text-green-600"></FaSmileBeam>{" "}
+                      <FaSmileBeam className=" text-2xl text-sky-600"></FaSmileBeam>{" "}
                       <span className="text-sm"> Manage My Account</span>
                     </NavLink>
                   </li>
 
-                  <li>
-                    <NavLink to={`/add-blog`} className="">
-                      <TfiWrite className=" text-2xl text-green-600"></TfiWrite>{" "}
-                      <span className="text-sm">Write a Blog</span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to={`/my-blogs`} className="">
-                      <IoNewspaperOutline className=" text-2xl text-green-600"></IoNewspaperOutline>{" "}
-                      <span className="text-sm">My Blogs</span>
-                    </NavLink>
-                  </li>
                   {user && !admin && (
                     <>
                       <li>
                         <NavLink to={"/order-history"}>
-                          <FaBox className="text-xl  text-green-600"></FaBox>{" "}
+                          <FaBox className="text-xl  text-sky-600"></FaBox>{" "}
                           <span className="text-sm">Order History</span>
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to={"/my-reviews"}>
-                          <FaGrinStars className="text-xl  text-green-600"></FaGrinStars>{" "}
-                          <span className="text-sm">My Reviews</span>
                         </NavLink>
                       </li>
                     </>
@@ -247,7 +210,7 @@ const NavigationBar = () => {
                   {user && admin && (
                     <li>
                       <NavLink to={"/dashboard"}>
-                        <MdDashboardCustomize className="text-xl  text-green-600"></MdDashboardCustomize>{" "}
+                        <MdDashboardCustomize className="text-xl  text-sky-600"></MdDashboardCustomize>{" "}
                         <span className="text-sm">Dashboard</span>
                       </NavLink>
                     </li>

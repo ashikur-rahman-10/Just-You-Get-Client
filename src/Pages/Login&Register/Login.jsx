@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../../assets/logo2.png";
 import { Link } from "react-router-dom";
+import GoogleLogin from "../../Components/GoogleLogin/GoogleLogin";
 
 const Login = () => {
   return (
@@ -76,6 +77,8 @@ const Login = () => {
             >
               Login
             </button>
+            <p className="text-center text-[#454545] text-lg">or</p>
+            <GoogleLogin />
           </form>
 
           {/* Links */}
