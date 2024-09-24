@@ -18,24 +18,20 @@ const useThisUser = () => {
       return res.data;
     },
   });
-
-  console.log(thisUser);
-
-  //   useEffect(() => {
-  //     if (user) {
-  //         const fetchData = async () => {
-  //           try {
-  //             const res = await axiosSecure.get(`/users/${user?.email}`);
-  //             setClient(res.data);
-  //             console.log(res.data.client);
-  //             setClientLoading(false);
-  //           } catch (error) {
-  //             console.error("Error fetching user data:", error);
-  //           }
-  //         };
-  //         fetchData();
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (user) {
+      const fetchData = async () => {
+        try {
+          const res = await axiosSecure.get(`/users/${user?.email}`);
+          setClient(res.data);
+          setClientLoading(false);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+      fetchData();
+    }
+  }, []);
 
   return { client, clientLoading };
 

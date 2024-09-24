@@ -189,6 +189,8 @@ const AddProduct = () => {
 
     // const { name, email, photoURL } = thisUser;
 
+    const postedIn = new Date().toISOString();
+
     const addedProduct = {
       productName,
       price: parseInt(price),
@@ -202,6 +204,7 @@ const AddProduct = () => {
       code,
       keywords,
       colors,
+      postedIn,
     };
 
     try {

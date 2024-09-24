@@ -1,5 +1,7 @@
 import React from "react";
 import TopBanner from "../TopBanner/TopBanner";
+import NewArrivals from "../NewArrivals/NewArrivals";
+import ShopByCatagories from "../ShopByCatagories/ShopByCatagories";
 
 const Home = () => {
   // Scroll to top
@@ -11,6 +13,8 @@ const Home = () => {
   return (
     <div className="pt-16">
       <TopBanner />
+      <NewArrivals />
+      <ShopByCatagories />
     </div>
   );
 };

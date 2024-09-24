@@ -140,7 +140,7 @@ const Login = () => {
                 onClick={() => {
                   setShow(!show);
                 }}
-                className="text-gray-600 text-xl absolute right-3 top-[10px]"
+                className="text-gray-600 text-xl absolute right-3 top-[10px] cursor-pointer"
               >
                 {show ? <FaEye /> : <FaEyeSlash />}
               </span>

@@ -78,6 +78,7 @@ const NavigationBar = () => {
       (product) =>
         product.productName?.toLowerCase().includes(searchTerm.toLowerCase()) || // Search by Bengali product name
         product.keywords?.toLowerCase().includes(searchTerm.toLowerCase()) || // Search by product keyword
+        product.category?.toLowerCase().includes(searchTerm.toLowerCase()) || // Search by product category
         product.colors?.toLowerCase().includes(searchTerm.toLowerCase()) // Search by product keyword
     );
   }
