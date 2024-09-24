@@ -14,6 +14,7 @@ import Profile from "../Pages/Profile/Profile";
 import PaymentsSuccess from "../Pages/Payments/PaymentsSuccess";
 import OrderHistory from "../Pages/OrderHistory/OrderHistory";
 import Invoice from "../Pages/OrderHistory/Invoice";
+import CategoryProducts from "../Pages/CategoryProducts/CategoryProducts";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: "/register", element: <Register /> },
       { path: "/categories", element: <Categories /> },
       { path: "/all-products", element: <AllProducts /> },
+      { path: "/categories/:category", element: <CategoryProducts /> },
       {
         path: "/cart",
         element: (

@@ -24,7 +24,7 @@ const ShopByCatagories = () => {
   return (
     <div className="w-full max-w-7xl py-10 mx-auto px-2">
       <div className="w-full flex justify-center">
-        <h1 className="text-center text-3xl md:text-4xl font-medium border-b-4 border-orange-600 w-fit text-blue-900">
+        <h1 className="text-center text-2xl md:text-4xl font-medium border-b-4 border-orange-600 w-fit text-blue-900">
           Shop by Categories
         </h1>
       </div>

@@ -3,7 +3,6 @@ import UserOrderHistory from "../../Hooks/UserOrderHistory";
 import useAuth from "../../Hooks/UseAuth";
 import { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import CustomLoader from "../../Components/CustomLoader/CustomLoader";
 
 const OrderHistory = () => {
   const { user } = useAuth();
@@ -81,7 +80,7 @@ const OrderHistory = () => {
   });
 
   return (
-    <div className="bg-green-100 lg:bg-white bg-opacity-50 min-h-[88vh]">
+    <div className="bg-blue-100 lg:bg-white bg-opacity-50 min-h-[100vh] pt-20">
       <h1 className="text-center py-6 text-xl text-gray-400 font-medium">
         Orders
       </h1>
@@ -121,7 +120,7 @@ const OrderHistory = () => {
                   </p>
                 </div>
                 {order.deliveredIn ? (
-                  <p className="text-sm text-green-500">
+                  <p className="text-sm text-blue-500">
                     Delivered on {formatDate(order?.deliveredIn)}
                   </p>
                 ) : (
@@ -169,7 +168,7 @@ const OrderHistory = () => {
                 <a
                   href={`/invoice/${order?.transactionId}`}
                   target="blank"
-                  className="bg-green-500 hover:bg-green-600 px-2 py-1 text-xs text-white rounded-md font-medium"
+                  className="bg-blue-500 hover:bg-blue-600 px-2 py-1 text-xs text-white rounded-md font-medium"
                 >
                   Invoice
                 </a>
