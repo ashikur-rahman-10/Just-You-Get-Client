@@ -5,10 +5,10 @@ import { Outlet } from "react-router-dom";
 const Main = () => {
   return (
     <div className="max-w-full mx-auto w-full">
-      <div className="z-40 fixed w-full max-w-full">
+      <div className="z-40 fixed w-full h-fit max-w-full">
         <NavigationBar></NavigationBar>
       </div>
-      <div className="pt-[64px] min-h-[100vh]">
+      <div className=" min-h-[100vh]">
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

@@ -4,6 +4,12 @@ import { Link } from "react-router-dom";
 import GoogleLogin from "../../Components/GoogleLogin/GoogleLogin";
 
 const Register = () => {
+  // Scroll to top
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
   return (
     <div
       className="min-h-screen flex items-center justify-center"
@@ -13,7 +19,7 @@ const Register = () => {
         backgroundPosition: "center",
       }}
     >
-      <div className="w-full h-screen bg-blue-600 bg-opacity-50 flex items-center justify-center">
+      <div className="w-full pt-16 h-screen bg-blue-600 bg-opacity-50 flex items-center justify-center">
         <div className="p-8 flex flex-col items-center w-full max-w-sm sm:max-w-md">
           {/* Logo */}
           <img src={logo} className="w-52 mb-10" />

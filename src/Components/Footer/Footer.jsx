@@ -4,7 +4,7 @@ import logo from "../../assets/logo2.png";
 
 const Footer = () => {
   return (
-    <div className="bg-gradient-to-bl from-blue-100 via-blue-200 to-blue-400">
+    <div className="bg-gradient-to-r from-blue-50 border-t border-blue-300 via-blue-200 to-blue-400">
       <footer className="footer p-10 max-w-7xl mx-auto text-neutral-content">
         <div>
           <img className="w-60" src={logo} alt="" />

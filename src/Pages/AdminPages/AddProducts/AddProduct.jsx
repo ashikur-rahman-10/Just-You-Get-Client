@@ -340,7 +340,7 @@ const AddProduct = () => {
           <div className="form-control">
             <label className="label">
               <span className="text-xs text-[#757575] font-medium ">
-                Cplor Options (separated by comma , )
+                Color Options (separated by comma , )
               </span>
             </label>
             <input

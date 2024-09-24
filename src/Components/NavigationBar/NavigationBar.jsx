@@ -7,13 +7,11 @@ import logo from "../../assets/logo.png";
 import UseCart from "../../Hooks/UseCart";
 import UseAdmin from "../../Hooks/UseAdmin";
 
-import { FaBox, FaGrinStars, FaSignOutAlt, FaSmileBeam } from "react-icons/fa";
+import { FaBox, FaSignOutAlt, FaSmileBeam } from "react-icons/fa";
 import { MdDashboardCustomize } from "react-icons/md";
 import CustomLoader from "../CustomLoader/CustomLoader.jsx";
 import Swal from "sweetalert2";
 import UseAllBooks from "../../Hooks/UseAllBooks";
-import { TfiWrite } from "react-icons/tfi";
-import { IoNewspaperOutline } from "react-icons/io5";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const NavigationBar = () => {
@@ -96,7 +94,7 @@ const NavigationBar = () => {
         <div
           className={`navbar max-h-12 lg:px-20 w-full mx-auto transition-all duration-1000 ${
             scroll
-              ? "bg-gradient-to-bl from-blue-100 via-blue-200 to-blue-400  shadow-md"
+              ? "bg-gradient-to-r from-blue-50 via-blue-200 to-blue-400  shadow-md"
               : "bg-transparent "
           }`}
         >
@@ -159,7 +157,7 @@ const NavigationBar = () => {
                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                       />
                     </svg>
-                    <p className="badge bg-green-500 text-white absolute left-0 bottom-2">
+                    <p className="badge bg-blue-500 text-white absolute left-0 bottom-2">
                       {cart.length}
                     </p>
                   </NavLink>
@@ -170,7 +168,9 @@ const NavigationBar = () => {
               <span>
                 <p
                   onClick={handleClickLogin}
-                  className=" font-medium px-3 py-2 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs text-info cursor-pointer"
+                  className={` font-medium px-3 py-2 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs  cursor-pointer  ${
+                    scroll ? "text-white" : "text-info "
+                  }`}
                 >
                   Login
                 </p>
