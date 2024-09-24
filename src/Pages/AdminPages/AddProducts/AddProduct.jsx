@@ -6,6 +6,7 @@ import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import wait from "../../../assets/please_wait_a_minute.gif";
 
 const AddProduct = () => {
   const { user } = useAuth();
@@ -22,6 +23,10 @@ const AddProduct = () => {
 
   const navigate = useNavigate();
 
+  const imageHostingUrl = `https://api.imgbb.com/1/upload?key=${
+    import.meta.env.VITE_IMAGE_HOSTING_KEY
+  }`;
+
   // get catagories
   const { data: cats = [], refetch: catagoriesRefetch } = useQuery({
     queryKey: ["categories"],
@@ -33,28 +38,81 @@ const AddProduct = () => {
   });
 
   // Add New categories
-  const handleAddNewCategory = (event) => {
+  const handleAddNewCategory = async (event) => {
     event.preventDefault();
+    setUploadLoading(true);
 
-    const newCategoryValue = event.target.newCategory.value;
+    const cat = event.target.newCategory.value;
+    const catImgFile = event.target.catImg.files[0]; // Get the image file
+    const catColor = event.target.color.value;
 
-    fetch("https://just-you-get.vercel.app/categories", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ cat: newCategoryValue }), // Corrected the object key here
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged) {
-          catagoriesRefetch();
-          toast.success("Successfully Added");
-        }
+    if (!catImgFile) {
+      Swal.fire({
+        icon: "error",
+        title: "Please upload an image for the category.",
+      });
+      return;
+    }
+
+    // Upload image to Imgbb
+    const formData = new FormData();
+    formData.append("image", catImgFile);
+
+    try {
+      // Image upload to Imgbb
+      const imgRes = await fetch(imageHostingUrl, {
+        method: "POST",
+        body: formData,
       });
 
-    setShowModal1(false); // Close modal after adding category
+      const imgData = await imgRes.json();
+
+      if (!imgData.success) {
+        Swal.fire({
+          icon: "error",
+          title: "Image upload failed. Please try again.",
+        });
+        return;
+      }
+
+      const catImgUrl = imgData.data.display_url;
+
+      // Construct the new category object
+      const newCategoryValue = { cat, catImg: catImgUrl, catColor };
+
+      // Post the category to your backend
+      const res = await fetch("https://just-you-get.vercel.app/categories", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newCategoryValue),
+      });
+
+      const data = await res.json();
+
+      if (data.acknowledged) {
+        setUploadLoading(false);
+        catagoriesRefetch(); // Refetch categories after adding
+        toast.success("Category added successfully!");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Failed to add category. Please try again.",
+        });
+      }
+
+      setShowModal1(false); // Close the modal after adding
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error adding category.",
+        text: error.message,
+      });
+    }
   };
+
   // Handle Form input
   const {
     register,
@@ -63,10 +121,6 @@ const AddProduct = () => {
     setValue,
     formState: { errors },
   } = useForm();
-
-  const imageHostingUrl = `https://api.imgbb.com/1/upload?key=${
-    import.meta.env.VITE_IMAGE_HOSTING_KEY
-  }`;
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
@@ -203,6 +257,14 @@ const AddProduct = () => {
     );
   }
 
+  if (uploadLoading) {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center z-50">
+        <img className="w-[80%] max-w-xl" src={wait} alt="" />
+      </div>
+    );
+  }
+
   // Scroll to top
   window.scrollTo({
     top: 0,
@@ -211,7 +273,7 @@ const AddProduct = () => {
   });
 
   return (
-    <div className="flex flex-col w-full items-center md:pt-8">
+    <div className="flex flex-col w-full items-center pt-16">
       <h1 className="text-center py-8 text-2xl">Add a Product to your shop</h1>
 
       <form
@@ -391,14 +453,36 @@ const AddProduct = () => {
           onSubmit={handleAddNewCategory}
           className="fixed z-30 inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50"
         >
-          <div className="bg-white p-4 rounded-md flex gap-3 flex-col items-center justify-center">
+          <div className="bg-white p-4 px-16 rounded-md flex gap-3 flex-col items-center justify-center">
             <h2 className="text-xl font-semibold mb-2">Add New Category</h2>
+
             <input
               type="text"
               name="newCategory"
-              className="border border-gray-300 rounded-md p-2 mb-2  w-72"
+              required
+              className="border border-gray-300 rounded-md p-2 mb-2  w-80"
               placeholder="Enter category name"
             />
+
+            <input
+              type="file"
+              name="catImg"
+              required
+              className="border border-gray-300 rounded-md p-2 mb-2  w-80"
+            />
+
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="color" className="text-xs text-gray-500">
+                Pick a Color (to represent category):
+              </label>
+              <input
+                type="color"
+                name="color"
+                required
+                className="border input border-gray-300 rounded-md p-2 mb-2 w-80"
+              />
+            </div>
+
             <div>
               <button
                 type="submit"

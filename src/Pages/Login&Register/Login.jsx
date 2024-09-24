@@ -1,15 +1,80 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo2.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "../../Components/GoogleLogin/GoogleLogin";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useAuth from "../../Hooks/UseAuth";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
-  // Scroll to top
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "smooth",
-  });
+  const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
+  const { user, login, loginWithGoogle, resetPassword } = useAuth();
+  const location = useLocation();
+  const from = location?.state?.from || "/";
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setError("");
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    login(email, password)
+      .then((result) => {
+        const loggedUser = result.user;
+        toast.success("Successfully Login!");
+        setError("");
+        navigate(from);
+        window.location.reload();
+        event.target.reset();
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setError(error.message);
+        window.alert(
+          "The email or password you entered is incorrect. Try again."
+        );
+      });
+  };
+
+  const handleNavigate = () => {
+    navigate("/register");
+    window.location.reload();
+  };
+
+  const handleResetPassword = () => {
+    document.getElementById("my_modal_5").close();
+    const email = window.prompt("Enter your email address:");
+    if (email) {
+      resetPassword(email)
+        .then(() => {
+          window.alert(
+            "Password reset email sent successfully. Please check your email account."
+          );
+        })
+        .catch((error) => {
+          window.alert(`Request failed: ${error.message}`);
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (error) {
+      window.alert(
+        "The email or password you entered is incorrect. Try again."
+      );
+    }
+  }, [error]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
   return (
     <div
       className="min-h-screen flex items-center justify-center"
@@ -25,8 +90,8 @@ const Login = () => {
           <img src={logo} className=" w-52 mb-10" />
 
           {/* Form */}
-          <form className="w-full space-y-4">
-            {/* Username Input */}
+          <form onSubmit={handleSubmit} className="w-full space-y-4">
+            {/* Email Input */}
             <div className="relative">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg
@@ -45,8 +110,10 @@ const Login = () => {
                 </svg>
               </span>
               <input
-                type="text"
-                placeholder="Username"
+                type="email"
+                placeholder="Email"
+                name="email"
+                required
                 className="w-full px-10 py-2 bg-white bg-opacity-80 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -69,8 +136,18 @@ const Login = () => {
                   ></path>
                 </svg>
               </span>
+              <span
+                onClick={() => {
+                  setShow(!show);
+                }}
+                className="text-gray-600 text-xl absolute right-3 top-[10px]"
+              >
+                {show ? <FaEye /> : <FaEyeSlash />}
+              </span>
               <input
-                type="password"
+                type={show ? "text" : "password"}
+                required
+                name="password"
                 placeholder="Password"
                 className="w-full px-10 py-2 bg-white bg-opacity-80 text-gray-700 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -89,9 +166,12 @@ const Login = () => {
 
           {/* Links */}
           <div className="mt-4 text-center">
-            <a href="#" className="text-blue-100 hover:underline">
+            <p
+              onClick={handleResetPassword}
+              className="text-blue-100 hover:underline cursor-pointer"
+            >
               Forgot Password?
-            </a>
+            </p>
           </div>
           <div className="mt-2 text-center">
             <Link to={"/register"} className="text-blue-100 hover:underline">
@@ -100,6 +180,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Toaster></Toaster>
     </div>
   );
 };

@@ -45,12 +45,12 @@ const NavigationBar = () => {
       Swal.fire({
         icon: "info",
         title: "Please check your email to verify your account.",
-        showConfirmButton: false,
-        timer: 3000,
       });
-      logout()
-        .then((result) => {})
-        .catch((error) => {});
+      setTimeout(() => {
+        logout()
+          .then((result) => {})
+          .catch((error) => {});
+      }, 3000);
     }
     cartRefetch();
     usersRefetch();
@@ -77,7 +77,8 @@ const NavigationBar = () => {
     filteredProducts = products.filter(
       (product) =>
         product.productName?.toLowerCase().includes(searchTerm.toLowerCase()) || // Search by Bengali product name
-        product.keywords?.toLowerCase().includes(searchTerm.toLowerCase()) // Search by English product name
+        product.keywords?.toLowerCase().includes(searchTerm.toLowerCase()) || // Search by product keyword
+        product.colors?.toLowerCase().includes(searchTerm.toLowerCase()) // Search by product keyword
     );
   }
 
@@ -89,7 +90,7 @@ const NavigationBar = () => {
     <div className=" w-full  border-b border-info">
       <div className="flex flex-col w-full items-center ">
         <div
-          className={`navbar max-h-12 lg:px-20 w-full mx-auto transition-all duration-1000 ${
+          className={`navbar max-h-12 lg:px-20 w-full mx-auto bg-gradient-to-r from-blue-50 via-blue-200 to-blue-400 duration-1000 ${
             scroll
               ? "bg-gradient-to-r from-blue-50 via-blue-200 to-blue-400  shadow-md"
               : "bg-transparent "
@@ -107,26 +108,26 @@ const NavigationBar = () => {
             }`}
           >
             <NavLink
-              className="font-medium px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs "
+              className="font-medium px-2 md:px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs "
               to={"/"}
             >
               Home
             </NavLink>
             <NavLink
-              className="font-medium px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs "
+              className="font-medium px-2 md:px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs "
               to={"/all-products"}
             >
               Products
             </NavLink>
             <NavLink
-              className="font-medium px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs "
+              className="font-medium px-2 md:px-3 py-1 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs "
               to={"/categories"}
             >
               Categories
             </NavLink>
             <button
               onClick={() => document.getElementById("my_modal_5").showModal()}
-              className="font-medium px-4 py-1 rounded-lg hover:bg-slate-200 lg:text-[16px] text-xs"
+              className="font-medium md:px-4 px-2  py-1 rounded-lg hover:bg-slate-200 lg:text-[16px] text-xs"
             >
               <FaMagnifyingGlass />
             </button>
@@ -138,11 +139,11 @@ const NavigationBar = () => {
                 {user && !admin && (
                   <NavLink
                     to={"/cart"}
-                    className="indicator relative hover:bg-slate-200 p-4 rounded-full"
+                    className="indicator relative hover:bg-slate-200 hover:text-info p-4 rounded-full"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-[#149352]"
+                      className="h-5 w-5 text-gray-600"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -165,8 +166,8 @@ const NavigationBar = () => {
               <span>
                 <p
                   onClick={handleClickLogin}
-                  className={` font-medium px-3 py-2 rounded-lg hover:bg-slate-200 lg:text-[13px] text-xs  cursor-pointer  ${
-                    scroll ? "text-white" : "text-info "
+                  className={` font-medium px-3 py-2 rounded-lg hover:bg-slate-200 lg:text-[13px] hover:text-info text-xs  cursor-pointer  ${
+                    scroll ? "text-white" : "text-sky-50 "
                   }`}
                 >
                   Login
