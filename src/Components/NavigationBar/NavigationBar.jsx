@@ -11,14 +11,14 @@ import { FaBox, FaSignOutAlt, FaSmileBeam } from "react-icons/fa";
 import { MdDashboardCustomize } from "react-icons/md";
 import CustomLoader from "../CustomLoader/CustomLoader.jsx";
 import Swal from "sweetalert2";
-import UseAllBooks from "../../Hooks/UseAllBooks";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import UseAllProducts from "../../Hooks/UseAllProducts.jsx";
 
 const NavigationBar = () => {
   const { user, loading, logout } = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [scroll, setScroll] = useState(false);
-  const { books } = UseAllBooks();
+  const { products } = UseAllProducts();
   const { cart, cartRefetch } = UseCart(user?.email);
   const { admin, usersRefetch } = UseAdmin();
   const navigate = useNavigate();
@@ -71,16 +71,13 @@ const NavigationBar = () => {
     setSearchTerm(searchTerm);
   };
 
-  let filteredBooks = [];
+  let filteredProducts = [];
 
   if (searchTerm) {
-    filteredBooks = books.filter(
-      (book) =>
-        book.bookName?.toLowerCase().includes(searchTerm.toLowerCase()) || // Search by Bengali book name
-        book.bookName_en?.toLowerCase().includes(searchTerm.toLowerCase()) || // Search by English book name
-        book.writerName?.toLowerCase().includes(searchTerm.toLowerCase()) || // Search by English book name
-        book.publications?.toLowerCase().includes(searchTerm.toLowerCase()) || // Search by English book name
-        book.keywords?.toLowerCase().includes(searchTerm.toLowerCase()) // Search by English book name
+    filteredProducts = products.filter(
+      (product) =>
+        product.productName?.toLowerCase().includes(searchTerm.toLowerCase()) || // Search by Bengali product name
+        product.keywords?.toLowerCase().includes(searchTerm.toLowerCase()) // Search by English product name
     );
   }
 
@@ -257,38 +254,32 @@ const NavigationBar = () => {
             </div>
 
             {/* Render Search Result */}
-            {/* <div className="pt-4 h-[400px]">
+            <div className="pt-4 h-[400px]">
               <ul className=" mx-auto bg-gray-200 max-h-[400px] overflow-y-auto md:-top-9 -top-7 duration-1000">
-                {filteredBooks?.map((book) => (
+                {filteredProducts?.map((product) => (
                   <Link
                     onClick={() => {
                       setSearchTerm("");
                     }}
-                    to={`/books/${book._id}`}
-                    key={book._id}
+                    to={`/products/${product._id}`}
+                    key={product._id}
                   >
-                    <li className="border-b border-white py-2 px-2 w-90 hover:bg-slate-50">
-                      <div className="flex">
+                    <li className="border-b border-white py-2 px-2 w-90 hover:bg-slate-50 duration-500">
+                      <div className="flex items-center">
                         <div>
                           <img
                             className="w-10 h-10 mr-2"
-                            src={book.image}
+                            src={product?.thumbnail}
                             alt=""
                           />
                         </div>
-                        <div className="text-xs">
-                          {book.bookName}
-                          <br />
-                          <span className="text-[10px]">
-                            {book?.writerName}
-                          </span>
-                        </div>
+                        <div className="text-xs">{product.productName}</div>
                       </div>
                     </li>
                   </Link>
                 ))}
               </ul>
-            </div> */}
+            </div>
           </div>
           <div className="modal-action">
             <form method="dialog">

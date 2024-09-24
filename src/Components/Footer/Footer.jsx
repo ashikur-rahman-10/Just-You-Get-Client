@@ -14,7 +14,7 @@ const Footer = () => {
           </p>
         </div>
         <div>
-          <span className="footer-title">Social</span>
+          <span className="footer-title text-gray-600">Social</span>
           <div className="grid grid-flow-col gap-4 text-gray-500">
             <Link>
               <svg
