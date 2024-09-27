@@ -32,7 +32,6 @@ const SalesReport = () => {
     }
   };
 
-  console.log(salesData);
   // Effect to handle sorting by orderCreationDate whenever sortOrder changes
   useEffect(() => {
     const handleSort = () => {
