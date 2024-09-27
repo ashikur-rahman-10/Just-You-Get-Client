@@ -119,6 +119,10 @@ const Register = () => {
     );
   }
 
+  if (user) {
+    navigate("/");
+  }
+
   // Scroll to top
   window.scrollTo({
     top: 0,

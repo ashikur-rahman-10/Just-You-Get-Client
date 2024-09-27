@@ -4,15 +4,10 @@ import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
-import { FaPen, FaRuler } from "react-icons/fa6";
-import { GiBathtub } from "react-icons/gi";
-import useAuth from "../../Hooks/UseAuth";
-import Swal from "sweetalert2";
 import CustomLoader from "../../Components/CustomLoader/CustomLoader";
 import UseAdmin from "../../Hooks/UseAdmin";
 import UseHandleAddCart from "../../Hooks/UseHandleAddCart";
 import UseAllProducts from "../../Hooks/UseAllProducts";
-import ProductCard from "../../Components/ProductCard/ProductCard";
 import ProductCardMini from "../../Components/ProductCard/ProductCardMini";
 
 const ProductDetails = () => {
@@ -32,7 +27,7 @@ const ProductDetails = () => {
 
   const { handleAddCart } = UseHandleAddCart(product);
 
-  const { images = [], _id, discounts, price, sold, code } = product;
+  const { images = [], _id, discounts, price, sold, code, quantity } = product;
 
   const discountPrice = price - price * (discounts / 100);
   const roundPrice = Math.ceil(discountPrice);
@@ -112,12 +107,25 @@ const ProductDetails = () => {
             {sold > 0 && (
               <p className="text-xs text-warning font-medium">Sold: {sold}</p>
             )}
-            <button
-              onClick={handleAddCart}
-              className="w-fit px-4 py-1 my-4 bg-blue-600 hover:bg-blue-700 z-40 text-white opacity-100 rounded-sm"
-            >
-              Add to cart
-            </button>
+            {product?.quantity > 0 ? (
+              <button
+                onClick={handleAddCart}
+                className="w-fit px-4 py-1 my-4 bg-blue-600 hover:bg-blue-700 z-40 text-white opacity-100 rounded-sm"
+              >
+                Add to cart
+              </button>
+            ) : (
+              <div>
+                <p className="text-sm text-red-600">Out of Stock</p>
+                <button
+                  onClick={handleAddCart}
+                  disabled
+                  className="w-fit px-4 py-1 my-4 bg-blue-600 saturate-0 z-40 text-white opacity-100 rounded-sm"
+                >
+                  Add to cart
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

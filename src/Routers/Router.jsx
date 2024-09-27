@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layouts/Main";
 import Login from "../Pages/Login&Register/Login";
 import Register from "../Pages/Login&Register/Register";
-import AddProduct from "../Pages/AdminPages/AddProducts/AddProduct";
+import AddProduct from "../Pages/AdminPage/AddProducts/AddProduct";
 import AdminOnly from "./AdminOnly";
 import Home from "../Pages/Home/Home/Home";
 import Categories from "../Pages/Categories/Categories";
@@ -16,6 +16,16 @@ import OrderHistory from "../Pages/OrderHistory/OrderHistory";
 import Invoice from "../Pages/OrderHistory/Invoice";
 import CategoryProducts from "../Pages/CategoryProducts/CategoryProducts";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import Dashboard from "../Layouts/Dashboard";
+import AdminDashBoard from "../Pages/AdminPage/AdminDashBoard/AdminDashBoard";
+import NewOrders from "../Pages/AdminPage/NewOrders/NewOrders";
+import ToShipped from "../Pages/AdminPage/ToShipped/ToShipped";
+import DeliveredOrders from "../Pages/AdminPage/DeliveredOrders/DelivaredOrders";
+import OrderDetails from "../Pages/AdminPage/OrderDetails/OrderDetails";
+import ShippingLevel from "../Pages/AdminPage/ShippingLevel/ShippingLevel";
+import ManageProduct from "../Pages/AdminPage/ManageProduct/ManageProduct";
+import ManageStocks from "../Pages/AdminPage/ManageStocks/ManageStocks";
+import SalesReport from "../Pages/AdminPage/SalesReport/SalesReport";
 
 const router = createBrowserRouter([
   {
@@ -74,11 +84,93 @@ const router = createBrowserRouter([
         ),
       },
 
+      // {
+      //   path: "/add-product",
+      //   element: (
+      //     <AdminOnly>
+      //       <AddProduct />
+      //     </AdminOnly>
+      //   ),
+      // },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <AdminOnly>
+        <Dashboard />
+      </AdminOnly>
+    ),
+    children: [
       {
-        path: "/add-product",
+        path: "",
+        element: (
+          <AdminOnly>
+            <AdminDashBoard />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: "add-product",
         element: (
           <AdminOnly>
             <AddProduct />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: "manage-products",
+        element: (
+          <AdminOnly>
+            <ManageProduct />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: "new-orders",
+        element: (
+          <AdminOnly>
+            <NewOrders />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: "to-shipped",
+        element: (
+          <AdminOnly>
+            <ToShipped />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: "delivered",
+        element: (
+          <AdminOnly>
+            <DeliveredOrders />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: "order-details/:transactionId",
+        element: (
+          <AdminOnly>
+            <OrderDetails />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: "manage-stocks",
+        element: (
+          <AdminOnly>
+            <ManageStocks />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: "sells-report",
+        element: (
+          <AdminOnly>
+            <SalesReport />
           </AdminOnly>
         ),
       },
@@ -90,6 +182,14 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Invoice />
       </PrivateRoute>
+    ),
+  },
+  {
+    path: "shipping-level/:transactionId",
+    element: (
+      <AdminOnly>
+        <ShippingLevel />
+      </AdminOnly>
     ),
   },
 ]);

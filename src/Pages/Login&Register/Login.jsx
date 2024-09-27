@@ -67,6 +67,9 @@ const Login = () => {
     }
   }, [error]);
 
+  if (user) {
+    navigate("/");
+  }
   useEffect(() => {
     window.scrollTo({
       top: 0,
