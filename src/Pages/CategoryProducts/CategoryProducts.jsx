@@ -18,7 +18,7 @@ const CategoryProducts = () => {
   });
 
   return (
-    <div className="pt-20">
+    <div className="pt-20 max-w-7xl mx-auto w-full">
       <div className="w-full flex justify-center">
         <h1 className="text-center text-2xl md:text-3xl font-medium border-b-4 border-orange-600 w-fit text-blue-900">
           {category}
@@ -26,7 +26,7 @@ const CategoryProducts = () => {
       </div>
 
       {filteredProducts.length > 0 ? (
-        <div className="grid md:grid-cols-4 lg:grid-cols-6 grid-cols-2 md:gap-6 gap-4 py-6 mx-auto w-fit">
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-2 md:gap-6 gap-4 py-6 mx-auto w-fit">
           {filteredProducts.map((product) => (
             <ProductCard key={product._id} product={product}></ProductCard>
           ))}

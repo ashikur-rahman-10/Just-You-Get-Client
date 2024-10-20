@@ -26,6 +26,8 @@ import ShippingLevel from "../Pages/AdminPage/ShippingLevel/ShippingLevel";
 import ManageProduct from "../Pages/AdminPage/ManageProduct/ManageProduct";
 import ManageStocks from "../Pages/AdminPage/ManageStocks/ManageStocks";
 import SalesReport from "../Pages/AdminPage/SalesReport/SalesReport";
+import UserDetails from "../Pages/AdminPage/ManageUser/UserDetails";
+import ManageUsers from "../Pages/AdminPage/ManageUser/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -171,6 +173,22 @@ const router = createBrowserRouter([
         element: (
           <AdminOnly>
             <SalesReport />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: `user-details/:email`,
+        element: (
+          <AdminOnly>
+            <UserDetails />
+          </AdminOnly>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <AdminOnly>
+            <ManageUsers />
           </AdminOnly>
         ),
       },
